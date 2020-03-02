@@ -1,0 +1,107 @@
+{% extends 'plantilla.php.twig' %}
+
+
+
+{% block contenido %}
+    <div class="container">
+
+        <div class="row">
+			<div class="col"></div>
+			    <div class="col-5">
+				    <img src="images/mifielamigo-logo.png" alt="MiFielAmigo" />
+			    </div>
+			<div class="col"></div>
+		</div>
+
+
+        <!-- nota -->
+        <div class="row">
+            <div class="col-sd-12 mx-auto mb-5">
+                <h4>Registro de Usuario</h4>
+            </div>
+        </div>
+
+
+        <!-- formulario de registro -->
+        <form method="POST" action="index.php?con=usuario&ope=registrar">
+
+            <!-- nombre de usuario -->
+            <div class="row form-group">
+                <div class="col-md-4 mx-auto">
+                    <label class="col-form-label" for="email">Email de usuario:</label>
+                    <input class="form-control" type="email" name="email" placeholder="mifiel@amigo.com" required />
+                </div>
+            </div>
+
+            <!-- nombre -->
+            <div class="row form-group">
+                <div class="col-md-4 mx-auto">
+                    <label class="col-form-label" for="nombre">Nombre:</label>
+                    <input class="form-control" type="text" name="nombre" required />
+                </div>
+            </div>
+
+            <!-- apellidos -->
+            <div class="row form-group">
+                <div class="col-md-4 mx-auto">
+                    <label class="col-form-label" for="apellidos">Apellidos:</label>
+                    <input class="form-control" type="text" name="apellidos" required />
+                </div>
+            </div>
+
+            <!-- contraseña -->
+            <div class="row form-group">
+                <div class="col-md-4 mx-auto">
+                    <label class="col-form-label" for="pass">Contraseña:</label>
+                    <input class="form-control" type="password" name="pass" required />
+                </div>
+            </div>
+
+            <!-- confirmación contraseña -->
+            <div class="row form-group">
+                <div class="col-md-4 mx-auto">
+                    <label class="col-form-label" for="conf">Confirmación contraseña:</label>
+                    <input class="form-control" type="password" name="conf" required />
+                </div>
+            </div>
+
+            {% if correoExiste == true %}
+                <div class="row form-group">
+                    <div class="col-md-12 text-center">
+                        <div class="alert alert-danger  w-25 mx-auto" role="alert">
+                            El correo introducido ya está registrado en la base de datos.
+                        </div>
+                    </div>
+                </div>
+            {% endif %}
+
+            {% if contrasena == true %}
+                <div class="row form-group">
+                    <div class="col-md-12 text-center">
+                        <div class="alert alert-danger  w-25 mx-auto" role="alert">
+                            Las contraseñas no coinciden.
+                        </div>
+                    </div>
+                </div>
+            {% endif %}
+
+            <!-- registro -->
+            <div class="row form-group">
+                <div class="col-md-4 mx-auto">
+                    <button class="btn btn-primary w-100" type="submit">Registrarme</button>
+                </div>
+            </div>
+        </form>
+
+        <!-- volver atrás -->
+        <!--<div class="row">
+            <div class="col-md-4 mx-auto text-center">
+                <a href="http://localhost/mifielamigo" class="btn btn-outline-dark">Volver a inicio</a>
+            </div>
+        </div>-->
+
+    </div> <!-- container -->
+
+    <br />
+
+{% endblock %}

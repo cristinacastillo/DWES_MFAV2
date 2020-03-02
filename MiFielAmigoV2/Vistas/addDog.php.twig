@@ -1,0 +1,79 @@
+{% extends 'plantilla.php.twig' %}
+
+
+
+{% block contenido %}
+
+<div class="container">
+    <form method="get" enctype="multipart/form-data" action="index.php">
+
+        <input type="hidden" name="con" value="perro"/>
+        <input type="hidden" name="ope" value="anadir"/>
+
+        <div class="row form-group">
+            <div class="col-md-6 mx-auto">
+                <h5>Introduzca los datos siguientes</h5>
+            </div>
+        </div>
+
+        <!-- nombre Perro-->
+        <div class="row form-group">
+            <div class="col-md-6 mx-auto">
+                <label class="col-form-label" for="nombre">Nombre:</label>
+                <input class="form-control" type="text" name="nombre" required />
+            </div>
+        </div>
+
+        <!-- raza-->
+        <div class="row form-group">
+            <div class="col-md-6 mx-auto">
+                <label class="col-form-label" for="raza">Raza:</label>
+                <input class="form-control" type="text" name="raza" required />
+            </div>
+        </div>
+
+        <!-- genero-->
+        <div class="row form-group">
+            <div class="col-md-6 mx-auto">
+                <label class="col-form-label" for="genero">Género:</label>
+                <input class="form-control" type="text" name="genero" required />
+            </div>
+        </div>
+
+        <!-- descripcion-->
+        <div class="row form-group">
+            <div class="col-md-6 mx-auto">
+                <label class="col-form-label" for="descripcion">Descripción:</label>
+                <textarea class="form-control" type="text" name="descripcion" required></textarea>
+
+            </div>
+        </div>
+
+        <!-- fecha de nacimiento -->
+        <div class="row form-group">
+            <div class="col-md-6 mx-auto">
+                <label class="col-form-label" for="fec_nacimiento">Fecha de Nacimiento:</label>
+                <input class="form-control" type="date" name="fec_nacimiento" required />
+            </div>
+        </div>
+
+      <!-- foto
+        <div class="row form-group">
+            <div class="col-md-6 mx-auto">
+                <label for="img">Subir foto</label>
+                <input type="file" class="form-control-file" id="img" name="img" accept="image/jpg" required />
+                <small>Las fotos deberán tener formato 415x368px y formato png</small>
+            </div>
+        </div>-->
+
+        <!-- enviar -->
+        <div class="row form-group">
+            <div class="col-md-4 mx-auto">
+                <button class="btn btn-primary w-100" type="submit">Guardar</button>
+            </div>
+        </div>
+
+    </form>
+</div>
+
+{% endblock %}

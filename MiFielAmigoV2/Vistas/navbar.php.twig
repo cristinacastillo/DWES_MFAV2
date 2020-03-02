@@ -1,0 +1,129 @@
+
+{% block estilo %}
+<style>
+    body { height: 80%; }
+
+    #logo { width: 5em !important; margin-right: 3rem !important;
+        margin-left: 5rem !important; }
+
+    li { margin-left: 3vw !important; font-size: 1.5vw !important;
+
+    }
+
+    h5 { text-align: center; }
+
+    span { margin-left: 3vw !important; font-size: 1.05vw !important;
+        font-weight: bold !important; }
+
+    #logout { width: 1vw !important; margin: 0.3vw !important; }
+
+    nav { margin-bottom: 3vw !important; background-color: #e6f7ff
+    !important;
+
+    }
+
+</style>
+ {% block navbar %}
+      <nav class="navbar navbar-expand-lg navbar-light sticky">
+        <!--<a class="navbar-brand" href="index.php&con=perro&ope=listar&idUsu={{ usuario.idUsu }}">
+          <img id="logo" src="images/mifielamigo-logo.png" alt="" />
+        </a>-->
+
+        <form action="index.php" method="get">
+
+            <input type="hidden" name="con" value="perro" />
+            <input type="hidden" name="ope" value="listar" />
+            <input type="hidden" name="idUsu" value="{{ usuario.idUsu }}" />
+            <button class="logobtn" type="submit" ><img id="logo" src="images/mifielamigo-logo.png" alt="" /></button>
+
+        </form>
+
+        <button class="navbar-toggler"
+          type="button"
+          data-toggle="collapse"
+          data-target="#navbarText"
+          aria-controls="navbarText"
+          aria-expanded="false"
+          aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarText">
+          <ul class="navbar-nav mr-auto">
+            <li class="nav-item">
+              <a id="bienvenida"
+                class="nav-link disabled"
+                tabindex="-1"
+                aria-disabled="true">
+                ¡Bienvenid@ al refugio {{ usuario.nombre}} !
+              </a>
+            </li>
+
+            <li class="nav-item active">
+
+                <form action="index.php" method="get">
+
+                    <input type="hidden" name="con" value="perro" />
+                    <input type="hidden" name="ope" value="listar" />
+                    <input type="hidden" name="idUsu" value="{{ usuario.idUsu }}" />
+                    <button class="logobtn nav-link" type="submit" >Perros</button>
+
+                </form>
+            </li>
+
+            <li class="nav-item active">
+
+                <form action="index.php" method="get">
+
+                    <input type="hidden" name="con" value="adopcion" />
+                    <input type="hidden" name="ope" value="listar" />
+                    <input type="hidden" name="idUsu" value="{{ usuario.idUsu }}" />
+                    <button class="logobtn nav-link" type="submit" >Adopciones</button>
+
+                </form>
+            </li>
+
+            <li class="nav-item active">
+
+                <form action="index.php" method="get">
+
+                    <input type="hidden" name="con" value="usuario" />
+                    <input type="hidden" name="ope" value="info" />
+                    <input type="hidden" name="idUsu" value="{{ usuario.idUsu }}" />
+                    <button class="logobtn nav-link" type="submit" >Perfil de Usuario</button>
+
+                </form>
+            </li>
+
+
+            {% if usuario.admin == "admin" %}
+            <li class="nav-item">
+              <form action="index.php" method="get">
+
+                    <input type="hidden" name="con" value="usuario" />
+                    <input type="hidden" name="ope" value="panel" />
+                    <input type="hidden" name="idUsu" value="{{ usuario.idUsu }}" />
+                    <button class="logobtn nav-link" type="submit" >Panel Administración</button>
+
+                </form>
+            </li>
+            {% endif %}
+
+            <li class="nav-item active">
+
+                <form action="index.php" method="get">
+
+                    <input type="hidden" name="con" value="login" />
+                    <input type="hidden" name="ope" value="logout" />
+                    <button class="logobtn nav-link" type="submit" ><img id="logout" src="images/logout.png" alt="" />Cerrar sesión</button>
+
+                </form>
+            </li>
+
+          </ul>
+
+        </div>
+      </nav>
+    {% endblock %}
+
+

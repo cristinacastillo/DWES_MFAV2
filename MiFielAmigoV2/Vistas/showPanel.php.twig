@@ -1,0 +1,171 @@
+{% extends 'plantilla.php.twig' %}
+
+{% block titulo %}
+
+{% endblock %}
+
+{% block navbar %}
+  {% if usuario.admin == "admin" %}
+        <nav class="navbar navbar-expand-lg navbar-light sticky">
+          <!--<a class="navbar-brand" href="index.php&con=perro&ope=listar&idUsu={{ usuario.idUsu }}">
+            <img id="logo" src="images/mifielamigo-logo.png" alt="" />
+          </a>-->
+
+          <form action="index.php" method="get">
+
+              <input type="hidden" name="con" value="perro" />
+              <input type="hidden" name="ope" value="listar" />
+              <input type="hidden" name="idUsu" value="{{ usuario.idUsu }}" />
+              <button class="logobtn" type="submit" ><img id="logo" src="images/mifielamigo-logo.png" alt="" /></button>
+
+          </form>
+
+          <button class="navbar-toggler"
+            type="button"
+            data-toggle="collapse"
+            data-target="#navbarText"
+            aria-controls="navbarText"
+            aria-expanded="false"
+            aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+
+          <div class="collapse navbar-collapse" id="navbarText">
+            <ul class="navbar-nav mr-auto">
+              <li class="nav-item">
+                <a id="bienvenida"
+                  class="nav-link disabled"
+                  tabindex="-1"
+                  aria-disabled="true">
+                  ¡Bienvenid@ al refugio {{ usuario.nombre}} !
+                </a>
+              </li>
+
+              <li class="nav-item active">
+
+                  <form action="index.php" method="get">
+
+                      <input type="hidden" name="con" value="perro" />
+                      <input type="hidden" name="ope" value="listar" />
+                      <input type="hidden" name="idUsu" value="{{ usuario.idUsu }}" />
+                      <button class="logobtn nav-link" type="submit" >Perros</button>
+
+                  </form>
+              </li>
+
+              <li class="nav-item active">
+
+                  <form action="index.php" method="get">
+
+                      <input type="hidden" name="con" value="adopcion" />
+                      <input type="hidden" name="ope" value="listar" />
+                      <input type="hidden" name="idUsu" value="{{ usuario.idUsu }}" />
+                      <button class="logobtn nav-link" type="submit" >Adopciones</button>
+
+                  </form>
+              </li>
+
+              <li class="nav-item active">
+
+                  <form action="index.php" method="get">
+
+                      <input type="hidden" name="con" value="usuario" />
+                      <input type="hidden" name="ope" value="info" />
+                      <input type="hidden" name="idUsu" value="{{ usuario.idUsu }}" />
+                      <button class="logobtn nav-link" type="submit" >Perfil de Usuario</button>
+
+                  </form>
+              </li>
+
+
+              {% if usuario.admin == "admin" %}
+              <li class="nav-item">
+                <form action="index.php" method="get">
+
+                      <input type="hidden" name="con" value="usuario" />
+                      <input type="hidden" name="ope" value="panel" />
+                      <input type="hidden" name="idUsu" value="{{ usuario.idUsu }}" />
+                      <button class="logobtn nav-link" type="submit" >Panel Administración</button>
+
+                  </form>
+              </li>
+              {% endif %}
+
+              <li class="nav-item active">
+
+                  <form action="index.php" method="get">
+
+                      <input type="hidden" name="con" value="login" />
+                      <input type="hidden" name="ope" value="logout" />
+                      <button class="logobtn nav-link" type="submit" ><img id="logout" src="images/logout.png" alt="" />Cerrar sesión</button>
+
+                  </form>
+              </li>
+
+            </ul>
+
+          </div>
+        </nav>
+        {% endif %}
+      {% endblock %}
+
+
+  {% block contenido %}
+
+  {% if usuario.admin == "admin" %}
+
+  
+  <div class="container">
+  <table class="table">
+    <thead class="thead-dark">
+      <tr>
+        <th scope="col">Nombre</th>
+        <th scope="col">Apellidos</th>
+        <th scope="col">Correo electrónico</th>
+        <th scope="col">Dar de baja</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+      {% for item in dat %}
+        <td>{{ item.nombre }}</td>
+        <td>{{ item. apellidos }}</td>
+        <td>{{ item.email }}</td>
+        <td><button type="button" class="logobtn" data-toggle="modal" data-target="#exampleModal"><i class='fas fa-trash-alt'></button></td>
+      </tr>
+      <!-- Modal -->
+      <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              ¿Quieres dar de baja a <b>{{ item.nombre }} {{ item. apellidos }}</b>?
+            </div>
+            <div class="modal-footer">
+              
+              <a href="index.php?ope=borrar&con=usuario&id={{ item.idUsu }}&idUsu={{usuario.idUsu}}" id="borrar" class="btn btn-danger">Eliminar</a>
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+    </tbody>
+  </table>
+      
+
+  </div>
+  {% else %}
+
+    <h1 style="text-align:center;">¡No tienes permiso!</h1>
+    
+  {% endif %}
+
+  {% endblock %}
+
+

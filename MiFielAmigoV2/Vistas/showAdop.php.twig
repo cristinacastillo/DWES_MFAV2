@@ -1,0 +1,151 @@
+{% extends 'plantilla.php.twig' %}
+
+{% block titulo %}
+
+{% endblock %}
+  {% block navbar %}
+      <nav class="navbar navbar-expand-lg navbar-light sticky">
+        <!--<a class="navbar-brand" href="index.php&con=perro&ope=listar&idUsu={{ usuario.idUsu }}">
+          <img id="logo" src="images/mifielamigo-logo.png" alt="" />
+        </a>-->
+
+        <form action="index.php" method="get">
+
+            <input type="hidden" name="con" value="perro" />
+            <input type="hidden" name="ope" value="listar" />
+            <input type="hidden" name="idUsu" value="{{ usuario.idUsu }}" />
+            <button class="logobtn" type="submit" ><img id="logo" src="images/mifielamigo-logo.png" alt="" /></button>
+
+        </form>
+
+        <button class="navbar-toggler"
+          type="button"
+          data-toggle="collapse"
+          data-target="#navbarText"
+          aria-controls="navbarText"
+          aria-expanded="false"
+          aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarText">
+          <ul class="navbar-nav mr-auto">
+            <li class="nav-item">
+              <a id="bienvenida"
+                class="nav-link disabled"
+                tabindex="-1"
+                aria-disabled="true">
+                ¡Bienvenid@ al refugio {{ usuario.nombre}} !
+              </a>
+            </li>
+
+            <li class="nav-item active">
+
+                <form action="index.php" method="get">
+
+                    <input type="hidden" name="con" value="perro" />
+                    <input type="hidden" name="ope" value="listar" />
+                    <input type="hidden" name="idUsu" value="{{ usuario.idUsu }}" />
+                    <button class="logobtn nav-link" type="submit" >Perros</button>
+
+                </form>
+            </li>
+
+            <li class="nav-item active">
+
+                <form action="index.php" method="get">
+
+                    <input type="hidden" name="con" value="adopcion" />
+                    <input type="hidden" name="ope" value="listar" />
+                    <input type="hidden" name="idUsu" value="{{ usuario.idUsu }}" />
+                    <button class="logobtn nav-link" type="submit" >Adopciones</button>
+
+                </form>
+            </li>
+
+            <li class="nav-item active">
+
+                <form action="index.php" method="get">
+
+                    <input type="hidden" name="con" value="usuario" />
+                    <input type="hidden" name="ope" value="info" />
+                    <input type="hidden" name="idUsu" value="{{ usuario.idUsu }}" />
+                    <button class="logobtn nav-link" type="submit" >Perfil de Usuario</button>
+
+                </form>
+            </li>
+
+
+            {% if usuario.admin == "admin" %}
+            <li class="nav-item">
+              <form action="index.php" method="get">
+
+                    <input type="hidden" name="con" value="usuario" />
+                    <input type="hidden" name="ope" value="panel" />
+                    <input type="hidden" name="idUsu" value="{{ usuario.idUsu }}" />
+                    <button class="logobtn nav-link" type="submit" >Panel Administración</button>
+
+                </form>
+            </li>
+            {% endif %}
+
+            <li class="nav-item active">
+
+                <form action="index.php" method="get">
+
+                    <input type="hidden" name="con" value="login" />
+                    <input type="hidden" name="ope" value="logout" />
+                    <button class="logobtn nav-link" type="submit" ><img id="logout" src="images/logout.png" alt="" />Cerrar sesión</button>
+
+                </form>
+            </li>
+
+          </ul>
+
+        </div>
+      </nav>
+    {% endblock %}
+
+
+{% block contenido %}
+
+ 
+<div class="container">
+
+    {% if dat == null %}
+
+    <div class='alert alert-warning' style='margin:5em;text-align:center' role='alert'><p>No tienes adopciones</p></div>
+
+    {% else %}
+
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th class="th" scope="col">Adopciones</th>
+                <th class="th" scope="col">Nombre del perro</th>
+                <th class="th" scope="col">Fecha de Adopción</th>
+
+            </tr>
+        </thead>
+            {% for item in dat %}
+                
+            <tbody>
+                <tr>
+                    <th scope="row">&#128021 &#128054</th>
+                    <td>{{ item.nombre }}</td>
+                    <td>{{ item.fecha }}</td>
+
+                </tr>
+                    
+            {% endfor %}
+
+            </tbody>
+    </table>
+
+    {% endif %}
+
+    
+
+</div>
+
+{% endblock %}

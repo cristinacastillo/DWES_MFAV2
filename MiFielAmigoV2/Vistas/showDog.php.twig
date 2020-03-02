@@ -1,0 +1,312 @@
+{% extends "plantilla.php.twig" %}
+
+
+{% block script %}
+<script>
+
+    $(document).ready(function() {
+        $("#borrar").click(function () { alert("Eliminado correctamente");
+
+        });
+    });
+
+</script>
+
+{% endblock %}
+  {% block navbar %}
+      <nav class="navbar navbar-expand-lg navbar-light sticky">
+        <!--<a class="navbar-brand" href="index.php&con=perro&ope=listar&idUsu={{ usuario.idUsu }}">
+          <img id="logo" src="images/mifielamigo-logo.png" alt="" />
+        </a>-->
+
+        <form action="index.php" method="get">
+
+            <input type="hidden" name="con" value="perro" />
+            <input type="hidden" name="ope" value="listar" />
+            <input type="hidden" name="idUsu" value="{{ usuario.idUsu }}" />
+            <button class="logobtn" type="submit" ><img id="logo" src="images/mifielamigo-logo.png" alt="" /></button>
+
+        </form>
+
+        <button class="navbar-toggler"
+          type="button"
+          data-toggle="collapse"
+          data-target="#navbarText"
+          aria-controls="navbarText"
+          aria-expanded="false"
+          aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarText">
+          <ul class="navbar-nav mr-auto">
+            <li class="nav-item">
+              <a id="bienvenida"
+                class="nav-link disabled"
+                tabindex="-1"
+                aria-disabled="true">
+                ¡Bienvenid@ al refugio {{ usuario.nombre}} !
+              </a>
+            </li>
+
+            <li class="nav-item active">
+
+                <form action="index.php" method="get">
+
+                    <input type="hidden" name="con" value="perro" />
+                    <input type="hidden" name="ope" value="listar" />
+                    <input type="hidden" name="idUsu" value="{{ usuario.idUsu }}" />
+                    <button class="logobtn nav-link" type="submit" >Perros</button>
+
+                </form>
+            </li>
+
+            <li class="nav-item active">
+
+                <form action="index.php" method="get">
+
+                    <input type="hidden" name="con" value="adopcion" />
+                    <input type="hidden" name="ope" value="listar" />
+                    <input type="hidden" name="idUsu" value="{{ usuario.idUsu }}" />
+                    <button class="logobtn nav-link" type="submit" >Adopciones</button>
+
+                </form>
+            </li>
+
+            <li class="nav-item active">
+
+                <form action="index.php" method="get">
+
+                    <input type="hidden" name="con" value="usuario" />
+                    <input type="hidden" name="ope" value="info" />
+                    <input type="hidden" name="idUsu" value="{{ usuario.idUsu }}" />
+                    <button class="logobtn nav-link" type="submit" >Perfil de Usuario</button>
+
+                </form>
+
+                
+            </li>
+
+
+            {% if usuario.admin == "admin" %}
+            <li class="nav-item">
+              <form action="index.php" method="get">
+
+                    <input type="hidden" name="con" value="usuario" />
+                    <input type="hidden" name="ope" value="panel" />
+                    <input type="hidden" name="idUsu" value="{{ usuario.idUsu }}" />
+                    <button class="logobtn nav-link" type="submit" >Panel Administración</button>
+
+                </form>
+            </li>
+            {% endif %}
+
+            <li class="nav-item active">
+
+                <form action="index.php" method="get">
+
+                    <input type="hidden" name="con" value="login" />
+                    <input type="hidden" name="ope" value="logout" />
+                    <button class="logobtn nav-link" type="submit" ><img id="logout" src="images/logout.png" alt="" />Cerrar sesión</button>
+
+                </form>
+            </li>
+
+          </ul>
+
+        </div>
+      </nav>
+    {% endblock %}
+
+
+{% block contenido %}
+
+<div class="container">
+
+    <div id="titulo" class="row">
+
+        <div class="col-sd-12 mx-auto">
+
+            <h1>{{ dat.nombre }}</h1>
+            
+            
+        </div>
+
+    </div>
+
+    <hr>
+
+    <div class="cotntainer">
+
+        <div class="row">
+
+            <div class="col-sm-6 ">
+
+                <div id="foto">
+                    <img class="perro" src="{{ dat.foto }}" alt="{{ dat.nombre }}">
+                </div>
+
+            </div>
+
+            <div class="col-sm-6">
+
+                <div class="row">
+
+                    <div class="col">
+                        <label class="col-form-label" for="nombre"><b>Nombre</b></label>
+                        <p>{{ dat.nombre }}</p>
+                    </div>
+
+                    <div class="col">
+                        <label class="col-form-label" for="raza"><b>Raza</b></label>
+                        <p>{{ dat.raza }}</p>
+                    </div>
+
+                </div>
+
+                <div class="row">
+
+                    <div class="col">
+                        <label class="col-form-label" for="genero"><b>Género</b></label>
+                        <p>{{ dat.genero }}</p>
+                    </div>
+
+                    <div class="col">
+                        <label class="col-form-label" for="fecnac"><b>Fecha de nacimiento</b></label>
+                        <p>{{ dat.fecNac}}</p>
+                    </div>
+
+                </div>
+
+            <div class="row">
+
+                <div class="col">
+
+                    <label class="col-form-label" for="descripcion"><b>Descripción</b><button id="editar" style="margin-left:2rem" type="button" class="btn btn-link badge badge-pill badge-warning" data-toggle="modal" data-target="#exampleModal2">Editar &#9998</button></label> 
+                    <p>{{ dat.descripcion }}</p>
+
+                </div>
+
+            </div>
+
+            <!-- Modal Eliminar -->
+
+            <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title">{{ dat.nombre }}</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+
+                        <div class="modal-body">
+                            <p>¿Seguro que quieres eliminar a {{ dat.nombre }} ?</p>
+                        </div>
+
+                        <div class="modal-footer">
+                            <a href="index.php?ope=borrar&con=perro&id={{ dat.idPer }}&idUsu={{ usuario.idUsu }}"id="borrar" class="btn btn-danger">Eliminar</a>
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <!-- Fin Modal Eliminar -->
+            <br>
+
+
+            <div class="row">
+                <div class="col ">
+                    <div class="col-sd-12 mx-auto">
+
+                    {% if usuario.admin == "admin" %}
+                        <button class="btn btn-outline-danger btnborrar" type="button" data-toggle="modal" data-target="#exampleModal">Borrar</button>
+                    {% endif %}
+                    </div>
+                </div>
+            </div>
+            <br>
+
+            <div id="titulo" class="row">
+                <div class="col-sd-12 mx-auto">
+
+                    {% if a == null %}
+
+                    <form action="index.php" method="get">
+
+                        <input type="hidden" name="con" value="adopcion" />
+                        <input type="hidden" name="ope" value="anadir" />
+                        <input type="hidden" name="idPer" value="{{ dat.idPer }}" />
+                        <input type="hidden" name="nombre" value="{{ dat.nombre }}" />
+                        <input type="hidden" name="idUsu" value="{{ usuario.idUsu }}" />
+
+                        <button type="submit" class='btn btn-outline-success'>Añadir a mis adopciones</button>
+                    </form>
+                    {% else %}   
+
+                    <label class='btn btn-success'>  &#x2714 ¡Adoptado!</label>
+
+                    {% endif %}
+
+                    </div>
+                </div>
+
+            <!-- Modal Editar -->
+
+            <div class="modal fade" id="exampleModal2" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title">Mi Fiel Amigo</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+
+                        <div class="modal-body">
+
+                            <form method="post" action="index.php?con=perro&ope=editar">
+
+                                <div class="row form-group">
+                                    <div class="col-md-6 mx-auto">
+                                        <h5>Modifica la descripción de {{ dat.nombre }}</h5>
+                                    </div>
+                                </div>
+
+
+                                <!-- descripcion-->
+                                <div class="row form-group">
+                                    <div class="col-md-12 mx-auto">
+                                        <input type="hidden" name="id" value="{{ dat.idPer }}">
+                                        <label class="col-form-label" for="descripcion">Descripción:</label>
+                                        <textarea class="form-control" type="text" style="min-height: 20em;" name="descripcionMod" required>{{ dat.descripcion }}</textarea>
+                                    </div>
+                                </div>
+
+
+                                <!-- enviar -->
+                                <div class="row form-group">
+                                    <div class="col-md-4 mx-auto">
+                                    <button class="btn btn-primary w-100" type="submit">Guardar</button>
+                                    </div>
+                                </div>
+
+                            </form>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- Fin Modal Editar -->
+
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

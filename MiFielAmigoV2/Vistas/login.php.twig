@@ -1,0 +1,106 @@
+{% extends "plantilla.php.twig" %}
+
+{% block titulo %}
+	
+{% endblock %}
+
+{% block navbar %}
+
+{% endblock %}
+
+
+
+{% block contenido %}
+
+	<div class="container">
+		
+		<div class="row">
+			<div class="col"></div>
+			<div class="col-5">
+				<img src="images/mifielamigo-logo.png" alt="MiFielAmigo" />
+			</div>
+			<div class="col"></div>
+		</div>
+	
+			{% if inicio == "true" %}
+				<div class="row form-group">
+					<div class="col-md-12 text-center">
+						<h3>¡Bienvenid@ a Mi Fiel Amigo!</h3>
+					</div>
+				</div>
+
+
+				<div class="row form-group">
+					<div class="col-md-12 text-center">
+						<button type="submit" form="Iniciar" class="btn btn-info ">Iniciar Sesión</button>
+					</div>
+				</div>
+
+				<br>
+
+				<div class="row form-group">
+					<div class="col-md-12 text-center">
+						<button type="submit" form="login" id="regis" class="btn btn-light">Registro</button>
+					</div>
+				</div>
+
+
+				<form method="GET" id="Iniciar" action="index.php">
+					<input type="hidden" name="con" value="login"/>
+					<input type="hidden" name="ope" value="index"/>
+					<input type="hidden" name="inicio" value="false"/>
+				</form>
+
+				<form method="GET" id="login" action="index.php">
+					<input type="hidden" name="con" value="login"/>
+					<input type="hidden" name="ope" value="registrar"/>
+				</form>
+			
+			{% endif %}
+
+			{% if inicio == "false" %}
+			<form method="POST" id="registro" autocomplete="off" class="form-inline" action="index.php?con=login&ope=login">
+
+				<!--<input type="hidden" name="con" value="login"/>
+				<input type="hidden" name="ope" value="login"/>-->
+				<div class="container">
+	
+					<!-- email -->
+					<div class="row form-group">
+						<div class="col-md-12 text-center">
+							<input class="form-control w-25 mx-auto" type="text" name="email" placeholder="mifiel@amigo.com" required />
+						</div>
+					</div>
+
+					<br>
+					<!-- contraseña -->
+					<div class="row form-group">
+						<div class="col-md-12 text-center">
+							<input class="form-control w-25 mx-auto" type="password" name="pass" placeholder="Contraseña" required />
+						</div>
+					</div>
+					<br>
+
+					{% if ok == true %}
+					<div class="row form-group">
+						<div class="col-md-12 text-center">
+							<div class="alert alert-danger  w-25 mx-auto" role="alert">
+								Usuario o contraseña no válido, pruebe de nuevo.
+							</div>
+						</div>
+					</div>
+					{% endif %}
+					<br>
+					<!-- botón LOGIN -->
+					<div class="row form-group">
+						<div class="col-md-12 text-center">
+							<button class="btn btn-primary w-25" type="submit">Entrar</button>
+						</div>
+					</div>
+				<div>
+			</form>
+			{% endif %}
+			</div>
+		</div>
+	</div>
+{% endblock %}

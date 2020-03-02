@@ -1,0 +1,255 @@
+{% extends 'plantilla.php.twig' %}
+
+{% block titulo %}
+
+{% endblock %}
+  {% block navbar %}
+      <nav class="navbar navbar-expand-lg navbar-light sticky">
+        <!--<a class="navbar-brand" href="index.php&con=perro&ope=listar&idUsu={{ usuario.idUsu }}">
+          <img id="logo" src="images/mifielamigo-logo.png" alt="" />
+        </a>-->
+
+        <form action="index.php" method="get">
+
+            <input type="hidden" name="con" value="perro" />
+            <input type="hidden" name="ope" value="listar" />
+            <input type="hidden" name="idUsu" value="{{ usuario.idUsu }}" />
+            <button class="logobtn" type="submit" ><img id="logo" src="images/mifielamigo-logo.png" alt="" /></button>
+
+        </form>
+
+        <button class="navbar-toggler"
+          type="button"
+          data-toggle="collapse"
+          data-target="#navbarText"
+          aria-controls="navbarText"
+          aria-expanded="false"
+          aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarText">
+          <ul class="navbar-nav mr-auto">
+            <li class="nav-item">
+              <a id="bienvenida"
+                class="nav-link disabled"
+                tabindex="-1"
+                aria-disabled="true">
+                ¡Bienvenid@ al refugio {{ usuario.nombre}} !
+              </a>
+            </li>
+
+            <li class="nav-item active">
+
+                <form action="index.php" method="get">
+
+                    <input type="hidden" name="con" value="perro" />
+                    <input type="hidden" name="ope" value="listar" />
+                    <input type="hidden" name="idUsu" value="{{ usuario.idUsu }}" />
+                    <button class="logobtn nav-link" type="submit" >Perros</button>
+
+                </form>
+            </li>
+
+            <li class="nav-item active">
+
+                <form action="index.php" method="get">
+
+                    <input type="hidden" name="con" value="adopcion" />
+                    <input type="hidden" name="ope" value="listar" />
+                    <input type="hidden" name="idUsu" value="{{ usuario.idUsu }}" />
+                    <button class="logobtn nav-link" type="submit" >Adopciones</button>
+
+                </form>
+            </li>
+
+            <li class="nav-item active">
+
+                <form action="index.php" method="get">
+
+                    <input type="hidden" name="con" value="usuario" />
+                    <input type="hidden" name="ope" value="info" />
+                    <input type="hidden" name="idUsu" value="{{ usuario.idUsu }}" />
+                    <button class="logobtn nav-link" type="submit" >Perfil de Usuario</button>
+
+                </form>
+            </li>
+
+
+            {% if usuario.admin == "admin" %}
+            <li class="nav-item">
+              <form action="index.php" method="get">
+
+                    <input type="hidden" name="con" value="usuario" />
+                    <input type="hidden" name="ope" value="panel" />
+                    <input type="hidden" name="idUsu" value="{{ usuario.idUsu }}" />
+                    <button class="logobtn nav-link" type="submit" >Panel Administración</button>
+
+                </form>
+            </li>
+            {% endif %}
+
+            <li class="nav-item active">
+
+                <form action="index.php" method="get">
+
+                    <input type="hidden" name="con" value="login" />
+                    <input type="hidden" name="ope" value="logout" />
+                    <button class="logobtn nav-link" type="submit" ><img id="logout" src="images/logout.png" alt="" />Cerrar sesión</button>
+
+                </form>
+            </li>
+
+          </ul>
+
+        </div>
+      </nav>
+    {% endblock %}
+
+
+
+{% block contenido %}
+
+<div class="container">
+
+  <!--<a href="perro/anadir" class="btn btn-outline-info" >Añadir perro &#10010</a>-->
+
+    <div class="row">
+
+      <div class="col-sm-6 ">
+        <button class="btn btn-outline-info" type="button" data-toggle="modal" data-target="#exampleModal">Añadir perro &#10010</button>
+      </div>
+      <p></p>
+ 
+    </div>
+
+
+
+<input type="hidden"  name="id" value="{{ usuario.idUsuario }}">
+
+
+
+    <div class="row mb-2">
+
+    
+
+      {% for item in dat %}
+
+        <div class="col col-lg-4">
+          <div class="card">
+            <img class="perro" src="{{ item.foto }}" class="card-img-top" alt="{{ item.nombre }}" />
+
+            <div class="card-body">
+              <div class="row">
+
+                <div class="col-sd-12 mx-auto">
+
+                  <a href="index.php?ope=listarPerro&con=perro&id={{ item.idPer }}&idUsu={{ usuario.idUsu }}" class="btn btn-warning"> {{ item.nombre }}</a>
+                  
+                </div>
+
+              </div>
+            </div>
+            
+          </div>
+        </div>
+      {% endfor %}
+
+    </div>
+  </div>
+
+  <!-- modal -->
+        
+       <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Mi Fiel Amigo</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+
+                    <div class="modal-body">
+
+                        <form method="POST" enctype="multipart/form-data" action="index.php?ope=anadir&con=perro">
+
+                            <input type="hidden" name="con" value="perro"/>
+                            <input type="hidden" name="ope" value="anadir"/>
+
+
+                            <div class="row form-group">
+                                <div class="col-md-6 mx-auto">
+                                    <h5>Introduzca los datos siguientes</h5>
+                                </div>
+                            </div>
+
+                            <input class="form-control" type="hidden" name="idUsu" value="{{ usuario.idUsu }}" readonly />
+
+                            <!-- nombre Perro-->
+                            <div class="row form-group">
+                                <div class="col-md-6 mx-auto">
+                                    <label class="col-form-label" for="nombre">Nombre:</label>
+                                    <input class="form-control" type="text" name="nombre" required />
+                                </div>
+                            </div>
+
+                            <!-- raza-->
+                            <div class="row form-group">
+                                <div class="col-md-6 mx-auto">
+                                    <label class="col-form-label" for="raza">Raza:</label>
+                                    <input class="form-control" type="text" name="raza" required />
+                                </div>
+                            </div>
+
+                            <!-- genero-->
+                            <div class="row form-group">
+                                <div class="col-md-6 mx-auto">
+                                    <label class="col-form-label" for="genero">Género:</label>
+                                    <input class="form-control" type="text" name="genero" required />
+                                </div>
+                            </div>
+
+                            <!-- descripcion-->
+                            <div class="row form-group">
+                                <div class="col-md-6 mx-auto">
+                                    <label class="col-form-label" for="descripcion">Descripción:</label>
+                                    <textarea class="form-control" type="text" name="descripcion" required></textarea>
+
+                                </div>
+                            </div>
+
+                            <!-- fecha de nacimiento -->
+                            <div class="row form-group">
+                                <div class="col-md-6 mx-auto">
+                                    <label class="col-form-label" for="fec_nacimiento">Fecha de Nacimiento:</label>
+                                    <input class="form-control" type="date" name="fec_nacimiento" required />
+                                </div>
+                            </div>
+
+                            <!-- foto -->
+                            <div class="row form-group">
+                                <div class="col-md-6 mx-auto">
+                                    <label for="img">Subir foto</label>
+                                    <input type="file" class="form-control-file" id="img" name="img" accept="image/jpg" required />
+                                    <small>Las fotos deberán tener formato 415x368px y formato png</small>
+                                </div>
+                            </div>
+
+                            <!-- enviar -->
+                            <div class="row form-group">
+                                <div class="col-md-4 mx-auto">
+                                    <!--<a href="index.php?ope=anadir&con=perro" class="btn btn-danger">Guardar</a>-->
+                                    <button class="btn btn-info" type="submit">Guardar</button>
+                                </div>
+                            </div>
+
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- -->
+{% endblock %}

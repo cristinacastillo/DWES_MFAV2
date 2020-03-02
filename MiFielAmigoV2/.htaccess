@@ -1,0 +1,9 @@
+Options -Indexes
+RewriteEngine on
+
+
+
+RewriteRule ^$                                  index.php?ope=index&con=login [L]
+RewriteRule ^perro/anadir$ 				        index.php?ope=anadir&con=perro [L]
+RewriteRule ^adopciones/listar$ 			    index.php?ope=listar&con=adopcion [L]
+
