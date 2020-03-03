@@ -1,6 +1,6 @@
 <?php
 
-	require_once "libs/Data.php" ;
+	require_once "./libs/Data.php" ;
 
     // recogemos el controlador y la operación 
 	$con = $_GET["con"]??"perro" ;
@@ -12,7 +12,7 @@
 	$nom = "{$con}Controller" ;
 
 	// importar el controlador necesario
-	require_once "controladores/$nom.php" ;
+	require_once "Controladores/$nom.php" ;
 
 	// instanciamos el controlador
 	$controller = new $nom() ;

@@ -4,12 +4,12 @@
 
 require_once 'baseController.php';
 
-require_once 'Modelos/Usuario.php';
+require_once './Modelos/Usuario.php';
 
 require_once 'loginController.php';
 
-require_once 'libs/Sesion.php';
-require_once 'libs/Routing.php';
+require_once './libs/Sesion.php';
+require_once './libs/Routing.php';
 
 class usuarioController extends baseController
 {
@@ -111,7 +111,7 @@ class usuarioController extends baseController
 
                 echo $this->twig->render('registro.php.twig',['correoExiste' => true]);
             endif;
-            echo $this->twig->render("login.php.twig",["inicio" => 'true']);
+            echo $this->twig->render("login.php.twig",["inicio" => 'false']);
         else:
             echo $this->twig->render('registro.php.twig',['contrasena' => true]);
         endif;

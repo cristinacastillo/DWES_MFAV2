@@ -5,7 +5,7 @@
 // curso 2019/20
 // Proyecto Mi Fiel Amigo v2
 
-require_once 'libs/Database.php';
+require_once './libs/Database.php';
 
 class Adopcion
 {

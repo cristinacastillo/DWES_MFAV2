@@ -4,7 +4,7 @@
     //  importamos el archivo siguiente para que así se importen
     // las librerias necesarias y poder trabjar con twig.
 
-	require_once "vendor/autoload.php" ;
+	require_once "./vendor/autoload.php" ;
 
 
 
@@ -18,7 +18,7 @@
 			// instanciamos el cargador y le proporcionamos el directorio raíz
 			// a partir del cual se encuentran las vistas.
 
-			$loader = new \Twig\Loader\FilesystemLoader("./vistas") ;
+			$loader = new \Twig\Loader\FilesystemLoader("./Vistas") ;
 
 			// creamos el objeto TWIG
 			$this->twig   = new \Twig\Environment($loader) ;

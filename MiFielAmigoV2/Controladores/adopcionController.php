@@ -5,11 +5,11 @@
 require_once 'baseController.php';
 require_once 'loginController.php';
 
-require_once 'Modelos/Adopcion.php';
-require_once 'Modelos/Perro.php';
+require_once './Modelos/Adopcion.php';
+require_once './Modelos/Perro.php';
 
-require_once 'libs/Sesion.php';
-require_once 'libs/Routing.php';
+require_once './libs/Sesion.php';
+require_once './libs/Routing.php';
 
 class adopcionController extends baseController
 {
@@ -30,7 +30,6 @@ class adopcionController extends baseController
 
     public function listar()
     {
-
         $idUsu = $_GET["idUsu"];
         $usuario = Usuario::find($idUsu);
 

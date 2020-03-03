@@ -269,7 +269,7 @@
 
                         <div class="modal-body">
 
-                            <form method="post" action="index.php?con=perro&ope=editar">
+                            <form method="post" action="index.php?con=perro&ope=editar&idUsu={{ usuario.idUsu }}">
 
                                 <div class="row form-group">
                                     <div class="col-md-6 mx-auto">
@@ -282,6 +282,7 @@
                                 <div class="row form-group">
                                     <div class="col-md-12 mx-auto">
                                         <input type="hidden" name="id" value="{{ dat.idPer }}">
+                                        <input type="hidden" name="idUsu" value="{{ usuario.idUsu }}">
                                         <label class="col-form-label" for="descripcion">Descripción:</label>
                                         <textarea class="form-control" type="text" style="min-height: 20em;" name="descripcionMod" required>{{ dat.descripcion }}</textarea>
                                     </div>

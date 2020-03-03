@@ -5,7 +5,7 @@
 // curso 2019/20
 // Proyecto Mi Fiel Amigo v2
 
-require_once 'libs/Database.php';
+require_once './libs/Database.php';
 
 class Perro
 {
@@ -276,4 +276,18 @@ class Perro
         echo "<script type='text/javascript'>alert('$msg');</script>";
     }
 
+
+    public function anadirImg(){
+
+        $db = new Database();
+
+        $sql = "UPDATE foto SET foto='{$this->foto}' WHERE idPer={$this->idPer} ;";
+
+        print_r($sql,false);
+        die();
+
+        $db->query($sql);
+            
+
+    }
 }

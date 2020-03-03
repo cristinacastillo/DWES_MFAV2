@@ -2,11 +2,11 @@
 
 require_once 'baseController.php';
 
-require_once 'Modelos/Usuario.php';
-require_once 'Modelos/Perro.php';
+require_once './Modelos/Usuario.php';
+require_once './Modelos/Perro.php';
 
-require_once 'libs/Sesion.php';
-require_once 'libs/Routing.php';
+require_once './libs/Sesion.php';
+require_once './libs/Routing.php';
 
 class loginController extends baseController
 {
@@ -41,6 +41,7 @@ class loginController extends baseController
      */
     public function login()
     {
+        
         if(isset($_POST["email"])):
 
             $email = $_POST['email'];
@@ -50,23 +51,19 @@ class loginController extends baseController
             
             if ($usuario):
 
-                if($this->sesion->login()):
+
+                $this->sesion->login();
+
+                $dat = Perro::findAll();
                 
-                    //print_r($_SESSION,false) ;
-
-                    $dat = Perro::findAll();
-                    
-                    echo $this->twig->render('showDogs.php.twig', [
-                    'dat' => $dat,
-                    'usuario' => $usuario
-                    ]);
-
-                    
-
-                endif;
+                echo $this->twig->render('showDogs.php.twig', [
+                'dat' => $dat,
+                'usuario' => $usuario
+            ]);
 
       
             else:
+
                 echo $this->twig->render('login.php.twig', [
                     'inicio' => 'false',
                     'ok' => 'true'
@@ -89,8 +86,7 @@ class loginController extends baseController
         //$_SESSION = [] ;
 		//session_destroy() ;
         $this->sesion->close();
-        //print_r($_SESSION,FALSE);
-        echo $this->twig->render('login.php.twig', ['inicio' => 'true']);
+        echo $this->twig->render('login.php.twig', ['inicio' => 'false']);
 
     }
 

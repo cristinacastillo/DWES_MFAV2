@@ -4,14 +4,14 @@
 
 require_once 'baseController.php';
 
-require_once 'Modelos/Perro.php';
-require_once 'Modelos/Adopcion.php';
-require_once 'Modelos/Usuario.php';
+require_once './Modelos/Perro.php';
+require_once './Modelos/Adopcion.php';
+require_once './Modelos/Usuario.php';
 
 require_once 'loginController.php';
 
-require_once 'libs/Sesion.php';
-require_once 'libs/Routing.php';
+require_once './libs/Sesion.php';
+require_once './libs/Routing.php';
 
 class perroController extends baseController
 {
@@ -30,11 +30,9 @@ class perroController extends baseController
         $this->sesion = Sesion::getInstance();
         // comprobar si hay una sesión activa
         if(!$this->sesion->checkActiveSession()):
-           
             loginController::login();
-
+            
         endif;
-        
     }
 
     /**
@@ -45,11 +43,11 @@ class perroController extends baseController
     public function listar()
     {
         
+        if($_GET["idUsu"]):
 
-            $idUsu = $_GET["idUsu"]?? 0;
-
-            if($idUsu!=0):
             $dat = Perro::findAll();
+
+            $idUsu = $_GET["idUsu"];
             
             $usuario = Usuario::find($idUsu);
 
@@ -63,7 +61,6 @@ class perroController extends baseController
             echo $this->twig->render('login.php.twig', ['inicio' => 'false']);
             
         endif;
-
     }
 
     /**
@@ -73,26 +70,19 @@ class perroController extends baseController
      */
     public function listarPerro()
     {
-        $idUsu = $_GET["idUsu"]?? 0;
+        $idPer = $_GET['id'];
 
-        if($idUsu!=0):
-            $idPer = $_GET['id'];
-            
-            $usuario = Usuario::find($idUsu);
+        $idUsu = $_GET["idUsu"];
+        
+        $usuario = Usuario::find($idUsu);
 
-            $dat = Perro::find($idPer);
+        $dat = Perro::find($idPer);
 
-            $adop = Adopcion::adopted($idPer);
+        $adop = Adopcion::adopted($idPer);
 
-            echo $this->twig->render('showDog.php.twig', ['dat' => $dat,
-                                                        'a' => $adop, 'idUsu' => $idUsu, 
-                                                        'usuario' => $usuario]);
-        else:
-
-            echo $this->twig->render('login.php.twig', ['inicio' => 'false']);
-            
-        endif;
-
+        echo $this->twig->render('showDog.php.twig', ['dat' => $dat,
+                                                      'a' => $adop, 'idUsu' => $idUsu, 
+                                                      'usuario' => $usuario]);
     }
 
     /**
@@ -126,6 +116,13 @@ class perroController extends baseController
     public function anadir()
     {
         
+        /* if (!isset($_GET['nombre'])):
+            // si no tengo datos sobre el perro,
+            // muestro el formulario vacío
+            echo $this->twig->render('addDog.php.twig'); 
+
+        else:*/
+
             $nombre = $_POST['nombre'];
             $raza = $_POST['raza'];
             $genero = $_POST['genero'];
@@ -159,7 +156,8 @@ class perroController extends baseController
 
             $idPer = $per->getIdPer();
 
-     
+            //print_r($_FILES["img"]); //comprobar
+            //echo "<br>";
 
             //movemos la imagen a nuestra ruta
             if (!move_uploaded_file($ruta_aleatoria, $mi_ruta)) :
@@ -167,6 +165,8 @@ class perroController extends baseController
 
             endif;
 
+            //print_r($mi_ruta,false);
+            //echo "<br>";
 
             // redirigimos al nuevo registro
 
@@ -188,9 +188,13 @@ class perroController extends baseController
 
         $id = $_POST["id"];
 
+        $idUsu = $_POST["idUsu"];
+
         $descripcionMod = $_POST["descripcionMod"];
 
         $per = Perro::find($id);
+
+        $usuario = Usuario::find($idUsu);
 
        // print_r($descripcionMod,false);
         //print_r($id,false);
@@ -199,7 +203,8 @@ class perroController extends baseController
 
         $per->save();
 
-        echo $this->twig->render('showDog.php.twig', ['dat' => $per]);
+        echo $this->twig->render('showDog.php.twig', ['dat' => $per, 'usuario' => $usuario]);
+
 
     }
 }
