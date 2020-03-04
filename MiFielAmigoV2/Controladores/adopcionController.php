@@ -30,7 +30,9 @@ class adopcionController extends baseController
 
     public function listar()
     {
-        $idUsu = $_GET["idUsu"];
+
+        $idUsu = $_POST["idUsu"] ?? 0;
+        if($idUsu != 0):
         $usuario = Usuario::find($idUsu);
 
         $dat = Adopcion::find($idUsu);
@@ -38,46 +40,51 @@ class adopcionController extends baseController
         echo $this->twig->render('showAdop.php.twig', [
             'dat' => $dat, 'usuario' => $usuario
         ]);
+    else:
+        echo $this->twig->render('login.php.twig', ['inicio' => 'false']);
+    endif;
+        
     }
 
     public function anadir(){
 
-        $nombre = $_GET["nombre"];
-        $idPer = $_GET["idPer"];
-        $fecha = date("Y-m-d");
+        $idUsu = $_POST["idUsu"] ?? 0;
 
-        $per = Perro::find($idPer);
+        if ($idUsu!= 0):
+            $usuario = Usuario::find($idUsu);
 
-        $idUsu = $_GET["idUsu"];
-        $usuario = Usuario::find($idUsu);
+            $nombre = $_POST["nombre"];
+            $idPer = $_POST["idPer"];
+            $fecha = date("Y-m-d");
 
-        /*echo $nombre;
-        echo $idPer;
-        echo $idUsu;
-        echo $idPer;
-        */
-        $adop = new Adopcion();
+            $per = Perro::find($idPer);
 
-
-        $adop->setIdPer($idPer);
-        $adop->setIdUsu($idUsu);
-        $adop->setNombre($nombre);
-        $adop->setFecha($fecha);
+            /*echo $nombre;
+            echo $idPer;
+            echo $idUsu;
+            echo $idPer;
+            */
+            $adop = new Adopcion();
 
 
-        $adop->save();
-
-        $dat = Adopcion::find($idUsu);
-
-        echo $this->twig->render('showAdop.php.twig', [
-            'dat' => $dat,
-            'usuario' => $usuario
-        ]);
+            $adop->setIdPer($idPer);
+            $adop->setIdUsu($idUsu);
+            $adop->setNombre($nombre);
+            $adop->setFecha($fecha);
 
 
-        //echo $this->twig->render('showDog.php.twig', ['dat' => $per]);
+            $adop->save();
 
-        
+            $dat = Adopcion::find($idUsu);
+
+            echo $this->twig->render('showAdop.php.twig', [
+                'dat' => $dat,
+                'usuario' => $usuario
+            ]);
+        else:
+            echo $this->twig->render('login.php.twig', ['inicio' => 'false']);
+        endif;
+              
 
 
     }

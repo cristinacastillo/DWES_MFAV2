@@ -29,14 +29,15 @@
           <img id="logo" src="images/mifielamigo-logo.png" alt="" />
         </a>-->
 
-        <form action="index.php" method="get">
+          <form action="index.php?con=perro&ope=listar" method="post">
 
-            <input type="hidden" name="con" value="perro" />
-            <input type="hidden" name="ope" value="listar" />
+            <!--<input type="hidden" name="con" value="perro" />
+            <input type="hidden" name="ope" value="listar" />-->
             <input type="hidden" name="idUsu" value="{{ usuario.idUsu }}" />
             <button class="logobtn" type="submit" ><img id="logo" src="images/mifielamigo-logo.png" alt="" /></button>
 
         </form>
+
 
         <button class="navbar-toggler"
           type="button"

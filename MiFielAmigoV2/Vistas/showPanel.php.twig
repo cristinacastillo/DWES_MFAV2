@@ -11,14 +11,15 @@
             <img id="logo" src="images/mifielamigo-logo.png" alt="" />
           </a>-->
 
-          <form action="index.php" method="get">
+        <form action="index.php?con=perro&ope=listar" method="post">
 
-              <input type="hidden" name="con" value="perro" />
-              <input type="hidden" name="ope" value="listar" />
-              <input type="hidden" name="idUsu" value="{{ usuario.idUsu }}" />
-              <button class="logobtn" type="submit" ><img id="logo" src="images/mifielamigo-logo.png" alt="" /></button>
+            <!--<input type="hidden" name="con" value="perro" />
+            <input type="hidden" name="ope" value="listar" />-->
+            <input type="hidden" name="idUsu" value="{{ usuario.idUsu }}" />
+            <button class="logobtn" type="submit" ><img id="logo" src="images/mifielamigo-logo.png" alt="" /></button>
 
-          </form>
+        </form>
+
 
           <button class="navbar-toggler"
             type="button"
@@ -43,10 +44,10 @@
 
               <li class="nav-item active">
 
-                  <form action="index.php" method="get">
+                  <form action="index.php?con=perro&ope=listar" method="post">
 
-                      <input type="hidden" name="con" value="perro" />
-                      <input type="hidden" name="ope" value="listar" />
+                      <!--<input type="hidden" name="con" value="perro" />
+                      <input type="hidden" name="ope" value="listar" />-->
                       <input type="hidden" name="idUsu" value="{{ usuario.idUsu }}" />
                       <button class="logobtn nav-link" type="submit" >Perros</button>
 
@@ -55,22 +56,19 @@
 
               <li class="nav-item active">
 
-                  <form action="index.php" method="get">
+                   <form action="index.php?con=adopcion&ope=listar" method="POst">
 
-                      <input type="hidden" name="con" value="adopcion" />
-                      <input type="hidden" name="ope" value="listar" />
-                      <input type="hidden" name="idUsu" value="{{ usuario.idUsu }}" />
-                      <button class="logobtn nav-link" type="submit" >Adopciones</button>
+                    <!--<input type="hidden" name="con" value="adopcion" />
+                    <input type="hidden" name="ope" value="listar" />-->
+                    <input type="hidden" name="idUsu" value="{{ usuario.idUsu }}" />
+                    <button class="logobtn nav-link" type="submit" >Adopciones</button>
 
-                  </form>
+                </form>
               </li>
 
               <li class="nav-item active">
 
-                  <form action="index.php" method="get">
-
-                      <input type="hidden" name="con" value="usuario" />
-                      <input type="hidden" name="ope" value="info" />
+                  <form action="index.php?con=usuario&ope=info" method="post">
                       <input type="hidden" name="idUsu" value="{{ usuario.idUsu }}" />
                       <button class="logobtn nav-link" type="submit" >Perfil de Usuario</button>
 
@@ -80,14 +78,12 @@
 
               {% if usuario.admin == "admin" %}
               <li class="nav-item">
-                <form action="index.php" method="get">
+                <form action="index.php?con=usuario&ope=panel" method="post">
 
-                      <input type="hidden" name="con" value="usuario" />
-                      <input type="hidden" name="ope" value="panel" />
-                      <input type="hidden" name="idUsu" value="{{ usuario.idUsu }}" />
-                      <button class="logobtn nav-link" type="submit" >Panel Administración</button>
+                    <input type="hidden" name="idUsu" value="{{ usuario.idUsu }}" />
+                    <button class="logobtn nav-link" type="submit" >Panel Administración</button>
 
-                  </form>
+                </form>
               </li>
               {% endif %}
 
@@ -147,9 +143,16 @@
               ¿Quieres dar de baja a <b>{{ item.nombre }} {{ item. apellidos }}</b>?
             </div>
             <div class="modal-footer">
-              
-              <a href="index.php?ope=borrar&con=usuario&id={{ item.idUsu }}&idUsu={{usuario.idUsu}}" id="borrar" class="btn btn-danger">Eliminar</a>
+
+              <form action="index.php?con=usuario&ope=borrar" method="post">
+                <input type="hidden" name="id" value="{{ item.idUsu }}" />
+                <input type="hidden" name="idUsu" value="{{ usuario.idUsu }}" />
+                
+                <button type="submit" class="btn btn-danger">Eliminar</button>
+              </form>
+
               <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+
             </div>
           </div>
         </div>

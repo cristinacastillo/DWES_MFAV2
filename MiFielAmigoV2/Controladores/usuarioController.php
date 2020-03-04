@@ -40,13 +40,18 @@ class usuarioController extends baseController
             loginController::login();
         endif;
         
-        $idUsu = $_GET["idUsu"];
-        
-        $usuario = Usuario::find($idUsu);
+        $idUsu = $_POST["idUsu"] ?? 0;
 
-            echo $this->twig->render('showInfo.php.twig', [
-                'usuario' => $usuario
-            ]);
+        if($idUsu != 0):
+            
+            $usuario = Usuario::find($idUsu);
+
+                echo $this->twig->render('showInfo.php.twig', [
+                    'usuario' => $usuario
+                ]);
+        else:
+            echo $this->twig->render('login.php.twig', ['inicio' => 'false']);
+        endif;
     
     }
 
@@ -63,16 +68,23 @@ class usuarioController extends baseController
             loginController::login();
         endif;
 
-        $idUsu = $_GET["idUsu"];
+
+        $idUsu = $_POST["idUsu"] ?? 0;
+
+        if($idUsu != 0):
         
-        $usuario = Usuario::find($idUsu);
+            $usuario = Usuario::find($idUsu);
 
-        $dat = Usuario::findUsers();
+            $dat = Usuario::findUsers();
 
-        echo $this->twig->render('showPanel.php.twig', [
-            'usuario' => $usuario, 
-            'dat' => $dat
-        ]);
+            echo $this->twig->render('showPanel.php.twig', [
+                'usuario' => $usuario, 
+                'dat' => $dat
+            ]);
+
+        else:
+            echo $this->twig->render('login.php.twig', ['inicio' => 'false']);
+        endif;
 
     }
 
@@ -127,21 +139,25 @@ class usuarioController extends baseController
             loginController::login();
         endif;
 
-        $idBorrar = $_GET["id"];
-        $idUsu = $_GET["idUsu"];
+        $idBorrar = $_POST["id"] ?? 0;
+        $idUsu = $_POST["idUsu"] ?? 0;
 
         //echo "idUsu" .$idUsu."<br>idBorrar".$idBorrar;
+        if($idBorrar!=0 && $idUsu!=0):
+            $usr = Usuario::delete($idBorrar);
 
-        $usr = Usuario::delete($idBorrar);
+            $usuario = Usuario::find($idUsu);
 
-        $usuario = Usuario::find($idUsu);
+            $dat = Usuario::findUsers();
 
-        $dat = Usuario::findUsers();
+            echo $this->twig->render('showPanel.php.twig', [
+                'usuario' => $usuario, 
+                'dat' => $dat
+            ]);
 
-        echo $this->twig->render('showPanel.php.twig', [
-            'usuario' => $usuario, 
-            'dat' => $dat
-        ]);
+        else:
+            echo $this->twig->render('login.php.twig', ['inicio' => 'false']);
+        endif;
 
 
     }

@@ -42,13 +42,12 @@ class perroController extends baseController
      */
     public function listar()
     {
+        $idUsu = $_POST["idUsu"] ?? 0;
         
-        if($_GET["idUsu"]):
+        if($idUsu != 0):
 
             $dat = Perro::findAll();
-
-            $idUsu = $_GET["idUsu"];
-            
+          
             $usuario = Usuario::find($idUsu);
 
             echo $this->twig->render('showDogs.php.twig', [
@@ -70,9 +69,15 @@ class perroController extends baseController
      */
     public function listarPerro()
     {
-        $idPer = $_GET['id'];
+        //$idPer = $_GET['id'];
 
-        $idUsu = $_GET["idUsu"];
+        //$idUsu = $_GET["idUsu"];
+
+        $idPer = $_POST['id'] ?? 0;
+
+        $idUsu = $_POST["idUsu"] ?? 0;
+
+        if ($idPer != 0 && $idUsu != 0):
         
         $usuario = Usuario::find($idUsu);
 
@@ -83,6 +88,10 @@ class perroController extends baseController
         echo $this->twig->render('showDog.php.twig', ['dat' => $dat,
                                                       'a' => $adop, 'idUsu' => $idUsu, 
                                                       'usuario' => $usuario]);
+        
+        else:
+            echo $this->twig->render('login.php.twig', ['inicio' => 'false']);
+        endif;
     }
 
     /**
@@ -92,19 +101,29 @@ class perroController extends baseController
      */
     public function borrar()
     {
-        $idPer = $_GET['id'];
-        $idUsu = $_GET['idUsu'];
-        $usuario = Usuario::find($idUsu);     
 
-        //$per->alert($msg);
-        $per = Perro::find($idPer);
-        $per->delete();
-        $dat = Perro::findAll();
+        $idPer = $_POST['id'] ?? 0;
+        $idUsu = $_POST['idUsu'] ?? 0;
 
-        echo $this->twig->render('showDogs.php.twig', [
-            'dat' => $dat,
-            'usuario' => $usuario
-        ]);
+        //echo $idPer;
+        //echo $idUsu;
+
+        if($idPer != 0 && $idUsu != 0):
+            $usuario = Usuario::find($idUsu);     
+
+            //$per->alert($msg);
+            $per = Perro::find($idPer);
+            $per->delete();
+            $dat = Perro::findAll();
+
+            echo $this->twig->render('showDogs.php.twig', [
+                'dat' => $dat,
+                'usuario' => $usuario
+            ]);
+
+        else:
+            echo $this->twig->render('login.php.twig', ['inicio' => 'false']);
+        endif;
         
     }
 
@@ -186,24 +205,29 @@ class perroController extends baseController
      */
     public function editar(){
 
-        $id = $_POST["id"];
+        $id = $_POST["id"] ?? 0;
 
-        $idUsu = $_POST["idUsu"];
+        $idUsu = $_POST["idUsu"] ?? 0;
 
-        $descripcionMod = $_POST["descripcionMod"];
+        if($id != 0 && $idUsu != 0):
 
-        $per = Perro::find($id);
+            $descripcionMod = $_POST["descripcionMod"];
 
-        $usuario = Usuario::find($idUsu);
+            $per = Perro::find($id);
 
-       // print_r($descripcionMod,false);
-        //print_r($id,false);
+            $usuario = Usuario::find($idUsu);
 
-        $per->setDescripcion($descripcionMod);
+        // print_r($descripcionMod,false);
+            //print_r($id,false);
 
-        $per->save();
+            $per->setDescripcion($descripcionMod);
 
-        echo $this->twig->render('showDog.php.twig', ['dat' => $per, 'usuario' => $usuario]);
+            $per->save();
+
+            echo $this->twig->render('showDog.php.twig', ['dat' => $per, 'usuario' => $usuario]);
+        else:
+            echo $this->twig->render('login.php.twig', ['inicio' => 'false']);
+        endif;
 
 
     }

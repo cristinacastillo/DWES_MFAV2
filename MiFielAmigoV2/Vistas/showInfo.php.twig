@@ -10,14 +10,15 @@
           <img id="logo" src="images/mifielamigo-logo.png" alt="" />
         </a>-->
 
-        <form action="index.php" method="get">
+        <form action="index.php?con=perro&ope=listar" method="post">
 
-            <input type="hidden" name="con" value="perro" />
-            <input type="hidden" name="ope" value="listar" />
+            <!--<input type="hidden" name="con" value="perro" />
+            <input type="hidden" name="ope" value="listar" />-->
             <input type="hidden" name="idUsu" value="{{ usuario.idUsu }}" />
             <button class="logobtn" type="submit" ><img id="logo" src="images/mifielamigo-logo.png" alt="" /></button>
 
         </form>
+
 
         <button class="navbar-toggler"
           type="button"
@@ -42,22 +43,22 @@
 
             <li class="nav-item active">
 
-                <form action="index.php" method="get">
+                <form action="index.php?con=perro&ope=listar" method="post">
 
-                    <input type="hidden" name="con" value="perro" />
-                    <input type="hidden" name="ope" value="listar" />
-                    <input type="hidden" name="idUsu" value="{{ usuario.idUsu }}" />
-                    <button class="logobtn nav-link" type="submit" >Perros</button>
+                      <!--<input type="hidden" name="con" value="perro" />
+                      <input type="hidden" name="ope" value="listar" />-->
+                      <input type="hidden" name="idUsu" value="{{ usuario.idUsu }}" />
+                      <button class="logobtn nav-link" type="submit" >Perros</button>
 
                 </form>
             </li>
 
             <li class="nav-item active">
 
-                <form action="index.php" method="get">
+                 <form action="index.php?con=adopcion&ope=listar" method="POst">
 
-                    <input type="hidden" name="con" value="adopcion" />
-                    <input type="hidden" name="ope" value="listar" />
+                    <!--<input type="hidden" name="con" value="adopcion" />
+                    <input type="hidden" name="ope" value="listar" />-->
                     <input type="hidden" name="idUsu" value="{{ usuario.idUsu }}" />
                     <button class="logobtn nav-link" type="submit" >Adopciones</button>
 
@@ -66,10 +67,8 @@
 
             <li class="nav-item active">
 
-                <form action="index.php" method="get">
+                <form action="index.php?con=usuario&ope=info" method="post">
 
-                    <input type="hidden" name="con" value="usuario" />
-                    <input type="hidden" name="ope" value="info" />
                     <input type="hidden" name="idUsu" value="{{ usuario.idUsu }}" />
                     <button class="logobtn nav-link" type="submit" >Perfil de Usuario</button>
 
@@ -79,10 +78,8 @@
 
             {% if usuario.admin == "admin" %}
             <li class="nav-item">
-              <form action="index.php" method="get">
+              <form action="index.php?con=usuario&ope=panel" method="post">
 
-                    <input type="hidden" name="con" value="usuario" />
-                    <input type="hidden" name="ope" value="panel" />
                     <input type="hidden" name="idUsu" value="{{ usuario.idUsu }}" />
                     <button class="logobtn nav-link" type="submit" >Panel Administración</button>
 

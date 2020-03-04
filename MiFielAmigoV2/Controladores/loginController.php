@@ -26,12 +26,12 @@ class loginController extends baseController
      */
     public function index()
     {
-        // $_GET["inicio"];
+        /*// $_GET["inicio"];
         if (!isset($_GET['inicio'])):
             echo $this->twig->render('login.php.twig', ['inicio' => 'true']);
-        else:
+        else:*/
             echo $this->twig->render('login.php.twig', ['inicio' => 'false']);
-        endif;
+        //endif;
     }
 
     /**
