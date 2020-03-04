@@ -27,5 +27,8 @@ La aplicación de Mi Fiel Amigo es un refugio, en el que puedes ver todos los pe
 - Por último, si simos administradores, tenedremos la ventana "panel de administración", ahí veremos todos los uduarios y podremos darlos de baja:
 ![admin](/assets/10.png "admin")
 
+
+![bbdd](/assets/bbdd.png "bbdd")
+
 <h1></h1>
                                     <h3>Cristina Castillo Obregón 2º DAW - IES Campanillas<h3>
