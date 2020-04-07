@@ -1,6 +1,6 @@
 <h1> Mi Fiel Amigo </h1>
 
-La aplicación de Mi Fiel Amigo es un refugio, en el que puedes ver todos los perros en adopción, en esta segunda versión habrá dos roles, usuario y administrador. El administrador. https://dekomori.pt/
+La aplicación de Mi Fiel Amigo es un refugio, en el que puedes ver todos los perros en adopción, en esta segunda versión habrá dos roles, usuario y administrador. El administrador. 
 
 - Para acceder a la aplicación, tendremos que, hacer login o crearnos un neuvo usuario:
 ![login](/assets/1.png "login")
